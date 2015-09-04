@@ -47,18 +47,18 @@ module.exports = function(app, passport) {
 
   // route to logout user from chrome extension
   app.get('/api/auth/chrome/logout', function(req, res, next) {
-    console.log(req.sesison, req.user);
+    console.log(req.session, req.user);
     req.logOut();
     req.logout();
     req.session.destroy();
-    console.log('Sesison & User after logout: ', req.sesison, req.user);
+    console.log('Session & User after logout: ', req.session, req.user);
 
     // what's our cookie name?
     // res.clearCookie('cookiename')
     res.status(200).send({
       auth: 'terminated'
     });
-  })
+  });
 
   // Facebook Auth Routes
   app.get('/api/auth/facebook', jsonParser, passport.authenticate('facebook', {
@@ -69,8 +69,13 @@ module.exports = function(app, passport) {
   // https://github.com/jaredhanson/passport-facebook
   // "Facebook's OAuth 2.0 implementation has a bug in which the fragment
   // #_=_ is appended to the callback URL."
-  app.get('/api/auth/facebook/callback', urlEncodedParser, passport.authenticate('facebook', {
+  app.get('/api/auth/facebook/callback', urlEncodedParser, jsonParser, passport.authenticate('facebook', {
     successRedirect: '/',
     failureRedirect: '/login'
   }));
-}
+
+  // Facebook Auth Route for chrome extension
+  app.get('/api/auth/chrome/facebook', jsonParser, passport.authenticate('facebook', {
+    scope: 'email'
+  }));
+};

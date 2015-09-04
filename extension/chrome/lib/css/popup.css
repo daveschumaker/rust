@@ -1,0 +1,33 @@
+body {
+  min-width: 600px;
+  background: #fff;
+}
+nav {
+  background-color: #fafafa;
+  width: 100%;
+}
+nav ul {
+  width: 90%;
+}
+
+.btn.red {
+  background: #c6463d;
+  color: #fff;
+}
+.btn.blue {
+  background: #5f8ee4;
+  color: #fff;
+}
+.btn.dark-grey {
+  background: #383838;
+  color: #fff;
+}
+.btn.outline {
+  color: #383838;
+  background: transparent;
+  border: 1px solid #383838;
+}
+.btn.outline:hover {
+  background: rgba(0, 0, 0, 0.23);
+}
+

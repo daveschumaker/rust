@@ -1,6 +1,8 @@
 var auth = require('../middleware').auth;
 var bodyParser = require('body-parser');
-
+var urlEncodedParser = bodyParser.urlencoded({
+  extended: true
+});
 var jsonParser = bodyParser.json();
 
 var dummyData = {
@@ -24,7 +26,32 @@ var dummyData = {
 };
 
 module.exports = function(app) {
-  app.get('/dummyData', auth.isAuthorized, function(req, res, next) {
+  app.get('/dummyData', urlEncodedParser, jsonParser, auth.isAuthorized, function(req, res, next) {
+    res.status(200).send({
+      data: 'loggedin'
+    });
+    // populate db with dummy data
+  });
+
+  app.get('/session', urlEncodedParser, jsonParser, function(req, res, next) {
+    console.log('content type:', req.get('Content-Type'));
+    console.log('accepts: ', req.accepts(['html', 'json']));
+    console.log('JSON?', req.is('json'));
+    console.log('HTML?', req.is('html'));
+    // if (req.accepted.some(function(type) {
+    //     return type.value === 'application/json';
+    //   })) {
+    //   console.log('json');
+    // } else {
+    //   //respond in html
+    //   console.log('html');
+
+    // }
+
+    res.status(200).send({
+      data: 'loggedin',
+      auth: auth.isAuthorized
+    });
     // populate db with dummy data
   });
 
