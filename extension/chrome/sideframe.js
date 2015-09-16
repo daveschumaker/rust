@@ -527,12 +527,22 @@ function registerCommentEventListeners(comment) {
 
     $(replyForms[i]).find('.reply-input').off('keydown').on('keydown', function(e) {
 
+      // Check if length is 0 and disable post button.
+      var getTextLength = document.getElementById('reply-input').value.length;
+      
+      if (getTextLength === 0) {
+        $(".reply-button").prop("disabled",true);
+      } else {
+        $(".reply-button").prop("disabled",false);
+      }
+
       if (e.keyCode === 13) {
         console.log('enter pressed .. ');
         // get input text
         var text = $(this).val();
         //reset the input field
         $(this).val('');
+        $(".reply-button").prop("disabled",true); // Disable the submit button since there is zero content.
         // get the commentId that we're replying to
         var repliesToId = $(this).parents('.reply-form').attr('data-comment-id');
         // post it!
