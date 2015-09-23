@@ -12,6 +12,7 @@ var Website = require('./components/Website');
 var Leaderboard = require('./components/Leaderboard');
 var Navigation = require('./components/Navigation');
 var Footer = require('./components/Footer');
+var Welcome = require('./components/Welcome');
 
 var App = React.createClass({
   componentDidMount: function() {
@@ -37,6 +38,7 @@ var routes = (
     <Route name="profile" path="/profile/?:userId?" handler={Profile} />
     <Route name="website" path="/website/:website?" handler={Website} />
     <Route name="leaderboard" path="/leaderboard" handler={Leaderboard} />
+    <Route name="welcome" path="/welcome" handler={Welcome} />
   </Route>
 );
 
